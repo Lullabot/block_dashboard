@@ -1,4 +1,4 @@
-name: Lullabot Blocks
+name: Block Dashboard
 type: module
 description: Creates a view that displays an overview of both reusable and nonreusable custom blocks.
 core: 8.x
