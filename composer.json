@@ -1,7 +1,7 @@
 {
-  "name": "lullabot/block_dashbaord",
+  "name": "lullabot/block_dashboard",
   "description": "Creates a view that displays an overview of both reusable and nonreusable custom blocks.",
   "type": "drupal-custom-module",
-  "homepage": "https://github.com/Lullabot/block_dashbaord",
+  "homepage": "https://github.com/Lullabot/block_dashboard",
   "keywords": ["Drupal"]
 }
