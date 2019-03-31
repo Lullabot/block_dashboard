@@ -1,0 +1,4 @@
+services:
+  block_dashboard.service:
+    class: Drupal\block_dashboard\LayoutService
+    arguments: ['@database']

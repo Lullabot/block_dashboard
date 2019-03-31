@@ -1,0 +1,72 @@
+<?php
+
+/**
+ * @file
+ * Contains block_dashboard.module.
+ */
+use Drupal\views\ViewExecutable;
+use Drupal\Core\Render\Markup;
+use Drupal\Core\Url;
+use Drupal\Core\Link;
+
+/**
+ * Implements hook_views_pre_render().
+ *
+ * Finds the block uuid in the view and uses it to find all the places this
+ * block is used in Layout Builder, either as an inline block or placed by
+ * Entity Browser Block or placed as a custom block. Each of those types
+ * of placements store information a little differently, some using uuid, some
+ * id, and some revision id, so we look for all three.
+ *
+ * @see /admin/content/blocks
+ */
+function block_dashboard_views_pre_render(ViewExecutable $view) {
+
+  // Make the block view more usable, /admin/content/blocks.
+  if ($view->id() == 'blocks' && $view->current_display == 'page_1') {
+    $view->element['#attached']['library'][] = 'block_dashboard/view_blocks';
+
+    // Dynamically find all the places each block is used in layout_builder
+    // and add usage to view results.
+    // @TODO We could cache this for better performance, but it's just an admin
+    // screen that probably won't be accessed often, so is probably ok.
+    $connection = \Drupal::database();
+    foreach($view->result as $value){
+      $uuid = $value->_entity->get('uuid')->value;
+      $original = $value->_entity->get('info')->value;
+      $id = $value->_entity->id();
+      $revision_id = $value->_entity->get('revision_id')->value;
+      $service = \Drupal::service('block_dashboard.service');
+      $results = (array) $service->layoutUuidUsage($uuid);
+      $results += (array) $service->layoutIdUsage($id);
+      $results += (array) $service->layoutRevisionIdUsage($revision_id);
+      $used_in = [];
+      foreach ($results as $result) {
+        $url = Url::fromUri('internal:/node/' . $result);
+        $text = t('@title', ['@title' => $url->toString()]);
+        $used_in[] = Link::fromTextAndUrl($text, $url)->toString();
+      }
+      $markup = Markup::create($original . '<br />Used in: ' . implode("\n", $used_in));
+      $value->_entity->set('info', $markup);
+    }
+  }
+}
+
+/**
+ * Implements hook_preprocess_views_view().
+ *
+ * Adds css and js to entity browser views that will highlight the selected
+ * row and make the whole row clickable, not just the checkbox.
+ */
+function block_dashboard_preprocess_views_view(&$variables) {
+  $affected_views = [
+    'node_browser',
+    'block_browser',
+    'media_entity_browser',
+    'bio_browser',
+  ];
+  if (in_array($variables['view']->id(), $affected_views)) {
+    $variables['view_array']['#attached']['library'][] = 'block_dashboard/eb_view_decoration';
+  }
+}
+

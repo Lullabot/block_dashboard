@@ -1,0 +1,5 @@
+name: Lullabot Blocks
+type: module
+description: Custom block changes for Lullabot.com.
+core: 8.x
+package: Lullabot

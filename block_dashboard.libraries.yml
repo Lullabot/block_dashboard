@@ -1,0 +1,4 @@
+block_dashboard:
+  css:
+    theme:
+      css/view_blocks.css: {}
