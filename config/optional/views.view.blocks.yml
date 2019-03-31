@@ -15,7 +15,7 @@ dependencies:
 id: blocks
 label: Blocks
 module: views
-description: ''
+description: 'Block dashboard for editors'
 tag: ''
 base_table: block_content_field_data
 base_field: id
@@ -85,23 +85,17 @@ display:
           summary: ''
           description: ''
           columns:
-            type: type
             info: info
-            rendered_entity: info
-            uuid: uuid
+            rendered_entity: rendered_entity
+            type: type
             changed: changed
+            uuid: uuid
             id: id
-            edit_block_content: edit_block_content
-            status: edit_block_content
-            reusable: edit_block_content
+            status: status
+            reusable_1: status
+            reusable: status
+            operations: operations
           info:
-            type:
-              sortable: false
-              default_sort_order: asc
-              align: ''
-              separator: '<br />'
-              empty_column: false
-              responsive: ''
             info:
               sortable: false
               default_sort_order: asc
@@ -116,14 +110,21 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
-            uuid:
+            type:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: '<br />'
+              empty_column: false
+              responsive: ''
+            changed:
+              sortable: true
+              default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false
               responsive: priority-low
-            changed:
-              sortable: true
-              default_sort_order: asc
+            uuid:
               align: ''
               separator: ''
               empty_column: false
@@ -135,14 +136,14 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
-            edit_block_content:
+            status:
               sortable: false
               default_sort_order: asc
               align: ''
               separator: '<br />'
               empty_column: false
               responsive: ''
-            status:
+            reusable_1:
               sortable: false
               default_sort_order: asc
               align: ''
@@ -156,76 +157,16 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
+            operations:
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
           default: '-1'
           empty_table: false
       row:
         type: fields
       fields:
-        type:
-          id: type
-          table: block_content_field_data
-          field: type
-          relationship: none
-          group_type: group
-          admin_label: ''
-          label: 'Block type'
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: target_id
-          type: entity_reference_label
-          settings:
-            link: false
-          group_column: target_id
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-          entity_type: block_content
-          entity_field: type
-          plugin_id: field
         info:
           id: info
           table: block_content_field_data
@@ -233,7 +174,7 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          label: Description
+          label: 'Description / Usage'
           exclude: false
           alter:
             alter_text: false
@@ -342,14 +283,14 @@ display:
           view_mode: entity_browser
           entity_type: block_content
           plugin_id: rendered_entity
-        uuid:
-          id: uuid
-          table: block_content
-          field: uuid
+        type:
+          id: type
+          table: block_content_field_data
+          field: type
           relationship: none
           group_type: group
           admin_label: ''
-          label: Usage
+          label: 'Block type'
           exclude: false
           alter:
             alter_text: false
@@ -390,11 +331,11 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
-          click_sort_column: value
-          type: string
+          click_sort_column: target_id
+          type: entity_reference_label
           settings:
-            link_to_entity: false
-          group_column: value
+            link: false
+          group_column: target_id
           group_columns: {  }
           group_rows: true
           delta_limit: 0
@@ -405,7 +346,7 @@ display:
           separator: ', '
           field_api_classes: false
           entity_type: block_content
-          entity_field: uuid
+          entity_field: type
           plugin_id: field
         changed:
           id: changed
@@ -473,6 +414,71 @@ display:
           field_api_classes: false
           entity_type: block_content
           entity_field: changed
+          plugin_id: field
+        uuid:
+          id: uuid
+          table: block_content
+          field: uuid
+          relationship: none
+          group_type: group
+          admin_label: ''
+          label: ''
+          exclude: true
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: string
+          settings:
+            link_to_entity: false
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+          entity_type: block_content
+          entity_field: uuid
           plugin_id: field
         id:
           id: id
@@ -547,7 +553,7 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          label: Published
+          label: Status
           exclude: false
           alter:
             alter_text: false
@@ -741,24 +747,24 @@ display:
           entity_type: block_content
           entity_field: reusable
           plugin_id: field
-        edit_block_content:
-          id: edit_block_content
+        operations:
+          id: operations
           table: block_content
-          field: edit_block_content
+          field: operations
           relationship: none
           group_type: group
           admin_label: ''
-          label: Operations
+          label: ''
           exclude: false
           alter:
             alter_text: true
-            text: '<a href="/block/{{ id }}" class="reusable-{{ reusable_1 }}">edit</a>'
-            make_link: true
+            text: '<div class="reusable-{{ reusable_1 }}">{{ operations }}</div>'
+            make_link: false
             path: ''
             absolute: false
             external: false
-            replace_spaces: true
-            path_case: lower
+            replace_spaces: false
+            path_case: none
             trim_whitespace: false
             alt: ''
             rel: ''
@@ -781,7 +787,7 @@ display:
           element_class: ''
           element_label_type: ''
           element_label_class: ''
-          element_label_colon: true
+          element_label_colon: false
           element_wrapper_type: ''
           element_wrapper_class: ''
           element_default_classes: true
@@ -789,11 +795,9 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
-          text: edit
-          output_url_as_text: false
-          absolute: false
+          destination: false
           entity_type: block_content
-          plugin_id: entity_link_edit
+          plugin_id: entity_operations
       filters:
         type_1:
           id: type_1
@@ -1088,7 +1092,7 @@ display:
           empty: true
           tokenize: false
           content:
-            value: '<a href="/block/add?destination=/admin/content/blocks" class="button button-action button--primary button--small">Add reusable block</a>'
+            value: "<a href=\"/block/add?destination=/admin/content/blocks\" class=\"button button-action button--primary button--small\">Add reusable block</a>\r\n\r\nThe \"Used in:\" links below show where each block is used.\r\n\r\nReusable blocks can be viewed and edited from here, and any changes made will affect all the places they are used. Non-reusable blocks can only be viewed and edited in the layout view of the page where they were added. "
             format: full_html
           plugin_id: text
       footer: {  }
@@ -1130,8 +1134,7 @@ display:
         - 'config:core.entity_view_display.block_content.video_callout.entity_browser'
         - 'config:core.entity_view_display.block_content.basic.default'
         - 'config:core.entity_view_display.block_content.basic.entity_browser'
-        - 'config:core.entity_view_display.block_content.breaker.default'
-        - 'config:core.entity_view_display.block_content.breaker.entity_browser'
+        - 'config:core.entity_view_display.block_content.cta.default'
         - 'config:core.entity_view_display.block_content.section_callout.full'
   page_1:
     display_plugin: page
@@ -1161,8 +1164,7 @@ display:
       tags:
         - 'config:core.entity_view_display.block_content.basic.default'
         - 'config:core.entity_view_display.block_content.basic.entity_browser'
-        - 'config:core.entity_view_display.block_content.breaker.default'
-        - 'config:core.entity_view_display.block_content.breaker.entity_browser'
+        - 'config:core.entity_view_display.block_content.cta.default'
         - 'config:core.entity_view_display.block_content.marketing.default'
         - 'config:core.entity_view_display.block_content.marketing.entity_browser'
         - 'config:core.entity_view_display.block_content.section_callout.default'
