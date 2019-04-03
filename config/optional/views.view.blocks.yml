@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - block_content.type.basic
+    - block_content.type.cta
     - block_content.type.marketing
     - block_content.type.section_callout
     - block_content.type.video_callout
@@ -799,49 +800,6 @@ display:
           entity_type: block_content
           plugin_id: entity_operations
       filters:
-        type_1:
-          id: type_1
-          table: block_content_field_data
-          field: type
-          relationship: none
-          group_type: group
-          admin_label: ''
-          operator: in
-          value:
-            basic: basic
-            marketing: marketing
-            section_callout: section_callout
-            video_callout: video_callout
-          group: 1
-          exposed: false
-          expose:
-            operator_id: ''
-            label: ''
-            description: ''
-            use_operator: false
-            operator: ''
-            identifier: ''
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-            reduce: false
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-          entity_type: block_content
-          entity_field: type
-          plugin_id: bundle
         type:
           id: type
           table: block_content_field_data
@@ -851,9 +809,10 @@ display:
           admin_label: ''
           operator: in
           value:
-            basic: basic
+            cta: cta
             marketing: marketing
             section_callout: section_callout
+            basic: basic
             video_callout: video_callout
           group: 1
           exposed: true
@@ -1126,6 +1085,7 @@ display:
         - url.query_args
         - user.permissions
       tags:
+        - 'config:core.entity_view_display.block_content.cta.default'
         - 'config:core.entity_view_display.block_content.marketing.default'
         - 'config:core.entity_view_display.block_content.marketing.entity_browser'
         - 'config:core.entity_view_display.block_content.section_callout.default'
@@ -1134,7 +1094,6 @@ display:
         - 'config:core.entity_view_display.block_content.video_callout.entity_browser'
         - 'config:core.entity_view_display.block_content.basic.default'
         - 'config:core.entity_view_display.block_content.basic.entity_browser'
-        - 'config:core.entity_view_display.block_content.cta.default'
         - 'config:core.entity_view_display.block_content.section_callout.full'
   page_1:
     display_plugin: page
